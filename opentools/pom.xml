@@ -6,5 +6,6 @@
   <packaging>pom</packaging>
   <modules>
   	<module>dom4j</module>
+  	<module>opencv</module>
   </modules>
 </project>
