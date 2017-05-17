@@ -41,8 +41,8 @@ public class WriteUtils {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		List<Word> words = ExcelUtils.read(new File("D:/english/猴哥SAT资料大礼包5.5版/托福初中高中基础词汇大礼包4.0版/猴哥初高中SAT托福基础词汇excel背诵版3.0/猴哥初中1500excel背诵版3.0.xls"), 0,6);
-		write(new File("d:/word.xml"), words);
+		List<Word> words = ExcelUtils.read(new File("D:/english/猴哥SAT资料大礼包5.5版/托福初中高中基础词汇大礼包4.0版/猴哥初高中SAT托福基础词汇excel背诵版3.0/猴哥高中3000excel背诵版3.0.xls"), 0,6);
+		write(new File("d:/word_高中3000.xml"), words);
 	}
 
 }
