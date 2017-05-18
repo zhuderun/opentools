@@ -11,6 +11,8 @@ public class Prepare {
 			System.out.println(r);
 		}
 		
+		System.out.println(Math.random());
+		
 	}
 
 }
