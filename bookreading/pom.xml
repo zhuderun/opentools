@@ -6,5 +6,7 @@
   <packaging>pom</packaging>
   <modules>
   	<module>java_core_technology</module>
+  	<module>usaso</module>
+  	<module>funquestion</module>
   </modules>
 </project>
