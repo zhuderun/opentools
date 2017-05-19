@@ -70,7 +70,10 @@ class FileEnumertionTask implements Runnable{
 		File [] files = directory.listFiles();
 		for(File f:files){
 			if(f.isDirectory()) enumerate(f);
-			else queue.put(f);
+			else {
+				queue.put(f);
+				Thread.sleep(100);	
+			}
 		}
 	}
 	
