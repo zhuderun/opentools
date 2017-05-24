@@ -50,8 +50,6 @@ class WriterRunnable implements Runnable{
 		this.job = job;
 	}
 	
-	
-
 	@Override
 	public void run() {
 		try {
