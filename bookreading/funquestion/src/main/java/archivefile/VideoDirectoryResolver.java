@@ -1,5 +1,6 @@
 package archivefile;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -50,7 +51,7 @@ public class VideoDirectoryResolver implements FileResolver{
 				catch(Exception e){
 					throw e;
 				}
-				Files.move(file.toPath(),to,StandardCopyOption.ATOMIC_MOVE);
+				Files.move(file.toPath(),to,StandardCopyOption.REPLACE_EXISTING);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -88,14 +89,18 @@ public class VideoDirectoryResolver implements FileResolver{
 	private void recordInTrace(String from,String to) throws IOException{
 		if(traceFile!=null){
 			synchronized (traceFile) {
-				FileWriter fw = new FileWriter(traceFile);
-				fw.write(from + "_move_" + to);
-				fw.close();
+				FileWriter fw = new FileWriter(traceFile,true);
+				BufferedWriter bw = new BufferedWriter(fw);
+				bw.write(from + "_move_" + to);
+				bw.newLine();
+				bw.close();
 			}
 		}
 	}
 	
 	public void rollback(){
-		
+		if(traceFile!=null){
+			
+		}
 	}
 }
