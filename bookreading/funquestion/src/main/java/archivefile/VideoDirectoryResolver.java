@@ -1,21 +1,21 @@
 package archivefile;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.attribute.FileAttribute;
-import java.nio.file.attribute.PosixFilePermission;
-import java.nio.file.attribute.PosixFilePermissions;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import archivefile.utils.MoveUtils;
 
 public class VideoDirectoryResolver implements FileResolver{
 	private Logger logger = LoggerFactory.getLogger(VideoDirectoryResolver.class);
@@ -26,9 +26,9 @@ public class VideoDirectoryResolver implements FileResolver{
 	private File traceFile;//移动记录,查看、回滚用
 	
 	
-	public VideoDirectoryResolver(String videoRootPath,File traceFile) throws IOException {
+	public VideoDirectoryResolver(String videoRootPath) throws IOException {
 		this.videoRoot = Paths.get(videoRootPath);
-		this.traceFile = traceFile;
+		traceFile = new File(System.getProperty("user.dir") + "/trace"+System.currentTimeMillis()+".txt");
 		if(!traceFile.exists()){
 			traceFile.createNewFile();
 		}
@@ -37,26 +37,28 @@ public class VideoDirectoryResolver implements FileResolver{
 			videoFormat.add(v);
 		}
 	}
+	
+	public VideoDirectoryResolver(File traceFile){
+		this.traceFile = traceFile;
+	}
 
 	@Override
 	public void Resolve(File file) {
 		if(canResolve(file)){
-			try {
-				Path to = Paths.get(videoRoot.toAbsolutePath().toString() + "/" + file.getName());
-				logger.info("move {} to {}",file.getAbsolutePath(),to.toAbsolutePath().toString());
-				//把移动记录到trace
-				try{
-					recordInTrace(file.toPath().toAbsolutePath().toString(), to.toAbsolutePath().toString());
+			try{
+				File result = MoveUtils.moveFileIntoDir(file.toPath(), videoRoot, file.getName());
+				if(result!=null){
+					recordInTrace(file.getAbsolutePath().toString(),result.getAbsolutePath().toString());
 				}
-				catch(Exception e){
-					throw e;
-				}
-				Files.move(file.toPath(),to,StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				e.printStackTrace();
+			}
+			catch(IOException e){
+				logger.error(e.toString());
+				throw new RuntimeException(e);
 			}
 		}
 	}
+	
+	
 
 	@Override
 	public boolean canResolve(File file) {
@@ -98,9 +100,20 @@ public class VideoDirectoryResolver implements FileResolver{
 		}
 	}
 	
-	public void rollback(){
+	public void rollback() throws IOException{
 		if(traceFile!=null){
-			
+			BufferedReader br = new BufferedReader(new FileReader(traceFile));
+			for(String line=null;(line = br.readLine())!=null;){
+				String [] ft = line.split("_move_");
+				if(ft.length == 2){
+					String from = ft[0].substring(0, ft[0].lastIndexOf(System.getProperty("file.separator")));
+					String to = ft[1];
+					Path ffrom = Paths.get(from);
+					Path fto = Paths.get(to);
+					MoveUtils.moveFileIntoDir(fto,ffrom,ft[0].substring(ft[0].lastIndexOf(System.getProperty("file.separator"))+1));
+				}
+			}
+			br.close();
 		}
 	}
 }

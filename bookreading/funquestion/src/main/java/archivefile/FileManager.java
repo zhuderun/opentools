@@ -24,17 +24,27 @@ public class FileManager {
 	private void execute(File root){
 		File [] files = root.listFiles();
 		for(File f:files){
+			//
+			if(f.isDirectory()){
+				String name = f.getName();
+				if(name.startsWith("$") || name.startsWith(".")){
+					continue;
+				}
+			}
+			
+			
 			boolean hasResolve = false;
 			for(FileResolver fr:fileResolvers){
 				if(fr.canResolve(f) && !hasResolve){
 					hasResolve = true;
-					Runnable task = new Runnable() {
-						@Override
-						public void run() {
-							fr.Resolve(f);
-						}
-					};
-					pool.submit(task);
+//					Runnable task = new Runnable() {
+//						@Override
+//						public void run() {
+//							fr.Resolve(f);
+//						}
+//					};
+//					pool.submit(task);
+					fr.Resolve(f);
 					break;
 				}
 			}
