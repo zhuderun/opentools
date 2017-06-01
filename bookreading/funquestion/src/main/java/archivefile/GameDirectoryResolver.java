@@ -9,6 +9,11 @@ public class GameDirectoryResolver implements FileResolver{
 		
 	}
 
+	/*
+	 * (exe文件)[文件夹的大小][exe文件的个数]
+	 * 
+	 * @see archivefile.FileResolver#canResolve(java.io.File)
+	 */
 	@Override
 	public boolean canResolve(File file) {
 		if(file!=null && file.isDirectory()){
