@@ -7,5 +7,6 @@
   <modules>
   	<module>dom4j</module>
   	<module>opencv</module>
+  	<module>webmagic</module>
   </modules>
 </project>
