@@ -7,5 +7,6 @@
   <modules>
   	<module>poi</module>
   	<module>pdfbox</module>
+  	<module>racketmq</module>
   </modules>
 </project>
