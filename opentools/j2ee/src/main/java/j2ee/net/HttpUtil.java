@@ -17,7 +17,7 @@ import java.util.Vector;
 
 /**
  * HTTP访问类
- * @author 管雷鸣
+ * @author isumi
  */ 
 public class HttpUtil { 
 	public final static String UTF8="UTF-8";

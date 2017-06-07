@@ -23,7 +23,7 @@ import javax.net.ssl.X509TrustManager;
 
 /**
  * 模拟HTTPS请求工具类
- * @author 管雷鸣
+ * @author isumi
  */
 public class HttpsUtil {
 	private String encode; 	//默认编码格式

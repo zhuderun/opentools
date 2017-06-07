@@ -36,7 +36,7 @@ import j2ee.utils.Log;
 
 /**
  * UI界面方面
- * @author 管雷鸣
+ * @author isumi
  *
  */
 public class UI {

@@ -7,7 +7,7 @@ import java.util.Vector;
 
 /**
  * 响应对象
- * @author 管雷鸣
+ * @author isumi
  */
 public class HttpResponse {
  
