@@ -8,5 +8,6 @@
   	<module>dom4j</module>
   	<module>opencv</module>
   	<module>webmagic</module>
+  	<module>j2ee</module>
   </modules>
 </project>
