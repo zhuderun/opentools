@@ -11,5 +11,6 @@
   	<module>webmagic</module>
   	<module>j2ee</module>
     <module>quartz-webapp</module>
+    <module>quartz</module>
   </modules>
 </project>

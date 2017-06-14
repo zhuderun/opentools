@@ -22,6 +22,7 @@ public class TaskTest {
 	public void run1() {
 		for (int i = 0; i < 1; i++) {
 			log.debug(i+" run1......................................" + (new Date()));
+			System.out.println("test" + new Date());
 		}
 	}
 	
