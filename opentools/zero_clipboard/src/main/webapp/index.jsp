@@ -1,0 +1,21 @@
+<html>
+  <body>
+    <button id="copy-button" data-clipboard-text="Copy Me!" title="Click to copy me.">Copy to Clipboard</button>
+    <script src="ZeroClipboard.js"></script>
+  </body>
+</html>
+
+<script>
+var client = new ZeroClipboard( document.getElementById("copy-button") );
+
+client.on( "ready", function( readyEvent ) {
+  alert( "ZeroClipboard SWF is ready!" );
+
+  client.on( "aftercopy", function( event ) {
+    // `this` === `client`
+    // `event.target` === the element that was clicked
+    event.target.style.display = "none";
+    alert("Copied text to clipboard: " + event.data["text/plain"] );
+  } );
+} );
+</script>
