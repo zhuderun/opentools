@@ -12,5 +12,6 @@
   	<module>j2ee</module>
     <module>quartz-webapp</module>
     <module>quartz</module>
+    <module>zero_clipboard</module>
   </modules>
 </project>

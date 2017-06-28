@@ -62,8 +62,6 @@ class FileEnumertionTask implements Runnable{
 		}catch(InterruptedException e){
 			e.printStackTrace();
 		}
-		
-		
 	}
 	
 	public void enumerate(File directory) throws InterruptedException{
@@ -71,8 +69,8 @@ class FileEnumertionTask implements Runnable{
 		for(File f:files){
 			if(f.isDirectory()) enumerate(f);
 			else {
+				System.out.println(Thread.currentThread() + "put file" + f.getName() + " into queue");
 				queue.put(f);
-				Thread.sleep(100);	
 			}
 		}
 	}
@@ -91,14 +89,17 @@ class SearchTask implements Runnable{
 	
 	@Override
 	public void run() {
+		System.out.println("start" + Thread.currentThread());
 		try{
 			boolean done = false;
 			while(!done){
 				File file = queue.take();
 				if(file == FileEnumertionTask.DUMMY){
+					System.out.println(Thread.currentThread() + "end");
 					done = true;
 					queue.put(file);
 				}else{
+					System.out.println(Thread.currentThread() + "do search file" + file.getName());
 					search(file);
 				}
 			}

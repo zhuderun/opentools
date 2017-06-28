@@ -17,12 +17,10 @@ public class ForkJoinTest {
 				return t>0.5;
 			}
 		});
-		
 		ForkJoinPool pool = new ForkJoinPool();
 		pool.invoke(counter);
 		System.out.println(counter.join());
 	}
-
 }
 
 

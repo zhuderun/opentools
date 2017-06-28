@@ -21,7 +21,7 @@ public class Bank {
 	}
 	
 	public  void transfer(int from,int to,double amount){
-		readLock.lock();
+		writeLock.lock();
 		try{
 			System.out.print(Thread.currentThread() + "----");
 			System.out.print(from + " transfer " + amount + "to " + to);
@@ -35,13 +35,13 @@ public class Bank {
 			accounts[to] = accounts[to] + amount;
 			System.out.println("total is " + count());
 		}finally{
-			readLock.unlock();
+			writeLock.unlock();
 		}
 		
 	}
 	
 	public  double count(){
-		writeLock.lock();
+		readLock.lock();
 		try{
 			double sum = 0l;
 			for(double d:accounts){
@@ -49,7 +49,7 @@ public class Bank {
 			}
 			return sum;
 		}finally{
-			writeLock.unlock();
+			readLock.unlock();
 		}
 		
 	}
